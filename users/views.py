@@ -6,8 +6,8 @@ from django.urls import reverse_lazy
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
-    template_name = 'accounts/signup.html'
-    success_url = reverse_lazy('post_list')
+    template_name = 'users/signup.html'
+    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -17,8 +17,8 @@ class SignUpView(CreateView):
 
 class UserLoginView(FormView):
     form_class = CustomAuthenticationForm
-    template_name = 'accounts/login.html'
-    success_url = reverse_lazy('post_list')
+    template_name = 'users/login.html'
+    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         email = form.cleaned_data.get('username')
@@ -31,8 +31,8 @@ class UserLoginView(FormView):
 
 class ProfileView(LoginRequiredMixin, UpdateView):
     form_class = UserProfileForm
-    template_name = 'accounts/profile.html'
-    success_url = reverse_lazy('accounts:profile')
+    template_name = 'users/profile-update.html'
+    success_url = reverse_lazy('home')
 
     def get_object(self, queryset=None):
         return self.request.user.profile
