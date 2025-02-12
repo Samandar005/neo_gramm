@@ -1,0 +1,164 @@
+/* Responsive styles for NeoGram */
+
+/* Base styles */
+html, body {
+    overflow-x: hidden;
+}
+
+/* Small screens (mobile) */
+@media screen and (max-width: 640px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    nav .container {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    .text-2xl {
+        font-size: 1.5rem;
+    }
+
+    .text-3xl {
+        font-size: 1.875rem;
+    }
+
+    .w-96 {
+        width: 100%;
+    }
+
+    .max-w-2xl {
+        max-width: 100%;
+    }
+
+    .p-8 {
+        padding: 1.5rem;
+    }
+
+    .space-x-4 > * + * {
+        margin-left: 0.5rem;
+    }
+
+    .flex-wrap {
+        flex-wrap: wrap;
+    }
+
+    .gap-2 {
+        gap: 0.25rem;
+    }
+}
+
+/* Medium screens (tablet) */
+@media screen and (min-width: 641px) and (max-width: 1024px) {
+    .container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .max-w-2xl {
+        max-width: 100%;
+    }
+
+    .w-96 {
+        width: 28rem;
+    }
+}
+
+/* Large screens (desktop) */
+@media screen and (min-width: 1025px) {
+    .container {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* Responsive adjustments for specific components */
+@media screen and (max-width: 640px) {
+    /* Login and Signup forms */
+    .w-96 {
+        width: 90%;
+        max-width: 360px;
+    }
+
+    /* Post create form */
+    .max-w-2xl {
+        width: 90%;
+    }
+
+    /* Profile update form */
+    .max-w-2xl {
+        width: 90%;
+    }
+
+    /* Post detail */
+    .max-w-2xl {
+        width: 100%;
+    }
+
+    /* Index page */
+    .flex.items-center.space-x-4 {
+        flex-wrap: wrap;
+    }
+
+    .flex.items-center.space-x-4 > * {
+        margin-bottom: 0.5rem;
+    }
+
+    /* Search, filter, and order section */
+    .flex.flex-wrap.gap-2 {
+        justify-content: center;
+    }
+
+    /* Post actions */
+    .flex.items-center.space-x-2 {
+        flex-wrap: wrap;
+    }
+
+    .flex.items-center.space-x-2 > * {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Ensure buttons and inputs are easily tappable on mobile */
+@media screen and (max-width: 640px) {
+    button, 
+    [type="button"], 
+    [type="reset"], 
+    [type="submit"],
+    input,
+    select,
+    textarea {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Improve readability on mobile */
+@media screen and (max-width: 640px) {
+    body {
+        font-size: 16px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        line-height: 1.3;
+    }
+
+    p {
+        line-height: 1.5;
+    }
+}
+
+/* Adjust layout for better mobile experience */
+@media screen and (max-width: 640px) {
+    .py-20 {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+
+    .space-y-8 > * + * {
+        margin-top: 1.5rem;
+    }
+}
