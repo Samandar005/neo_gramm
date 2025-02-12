@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block title %} NeoGram - Create Post {% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl neo-shadow overflow-hidden transition-neo p-6">
+    <h2 class="text-2xl font-semibold mb-6">Create New Post</h2>
+    <form class="space-y-4">
+        <div>
+            <label for="image" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Upload
+                Image</label>
+            <input type="file" id="image" accept="image/*"
+                   class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo">
+        </div>
+        <div>
+            <label for="caption" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Caption</label>
+            <textarea id="caption" rows="3"
+                      class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo"></textarea>
+        </div>
+        <div>
+            <label for="hashtags"
+                   class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Hashtags</label>
+            <input type="text" id="hashtags" placeholder="#YourHashtags"
+                   class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo">
+        </div>
+        <button type="submit"
+                class="w-full bg-gradient-to-r from-neoblue to-neopink text-white py-2 px-4 rounded-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neoblue transition-neo">
+            Post
+        </button>
+    </form>
+</div>
+{% endblock %}
