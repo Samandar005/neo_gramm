@@ -57,10 +57,10 @@
                     <span class="font-semibold">johndoe</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <a href="post-update.html" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
+                    <a href="{{ post.get_update_url }}" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a href="post-delete-confirm.html" class="text-red-500 hover:text-red-600 transition-neo">
+                    <a href="{{ post.get_delete_url }}" class="text-red-500 hover:text-red-600 transition-neo">
                         <i class="fas fa-trash"></i>
                     </a>
                 </div>

@@ -32,5 +32,5 @@ class PostUpdateView(UpdateView):
 
 class PostDeleteView(DeleteView):
     model = Posts
-    template_name = 'post/post-delete-confirm.html'
+    template_name = 'posts/post-delete-confirm.html'
     success_url = reverse_lazy('home')

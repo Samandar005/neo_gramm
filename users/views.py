@@ -1,8 +1,9 @@
-from .forms import CustomUserCreationForm, CustomAuthenticationForm, UserProfileForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView, FormView, UpdateView
 from django.urls import reverse_lazy
+from .forms import CustomUserCreationForm, CustomAuthenticationForm, UserProfileForm
+
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
