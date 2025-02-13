@@ -2,7 +2,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 from .forms import PostForm
 from .models import Post
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.views.generic.edit import FormMixin
 from comments.forms import CommentForm
 
@@ -30,17 +30,11 @@ class HomePageView(ListView):
         if order_option == 'Most Liked':
             posts = posts.order_by('-likes')
         elif order_option == 'Most Commented':
-            posts = posts.order_by('-comment_count')
+            posts = posts.annotate(comment_count=Count('comments')).order_by('-comment_count')
         else:
             posts = posts.order_by('-created_at')
+
         return posts
-
-
-
-from django.views.generic import DetailView
-from django.views.generic.edit import FormMixin
-from .models import Post
-from comments.forms import CommentForm
 
 class PostDetailView(FormMixin, DetailView):
     model = Post

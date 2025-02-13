@@ -8,12 +8,14 @@
 <div class="container mx-auto px-4 py-20">
     <div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl neo-shadow overflow-hidden transition-neo">
         <div class="p-4 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <img src="{{ post.author.profile.image.url }}"
-                     alt="User avatar" class="w-10 h-10 rounded-full">
-                <span class="font-semibold">{{ post.author_full_name }}</span>
-
-            </div>
+             <div class="flex items-center space-x-3">
+                    {% if post.author.profile.image %}
+                        <img src="{{ post.author.profile.image.url }}" alt="User avatar" class="w-10 h-10 rounded-full">
+                    {% else %}
+                        <img src="{% static 'images/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg' %}" alt="Default avatar" class="w-10 h-10 rounded-full">
+                    {% endif %}
+                    <span class="font-semibold">{{ post.author_full_name }}</span>
+                </div>
             <div class="flex items-center space-x-2">
                 <a href="{{ post.get_update_url }}" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
                     <i class="fas fa-edit"></i>

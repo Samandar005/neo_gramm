@@ -20,7 +20,6 @@ class Post(BaseModel):
     def get_update_url(self):
         return reverse('posts:update', args=[self.pk])
 
-
     @property
     def author_full_name(self):
         return self.author.full_name if self.author else ''
