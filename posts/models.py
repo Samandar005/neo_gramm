@@ -3,7 +3,7 @@ from .base_models import BaseModel
 from django.shortcuts import reverse
 
 
-class Posts(BaseModel):
+class Post(BaseModel):
     image = models.ImageField(upload_to='posts/')
     caption = models.CharField(max_length=50)
     hashtags = models.CharField(max_length=255)

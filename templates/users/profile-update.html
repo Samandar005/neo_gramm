@@ -1,42 +1,106 @@
 {% extends 'base.html' %}
 
-
-{% block title %}  NeoGram - Update Profile {% endblock %}
+{% block title %} NeoGram - Update Profile {% endblock %}
 
 {% block content %}
 <div class="container mx-auto px-4 py-20">
     <div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl neo-shadow overflow-hidden transition-neo">
         <div class="p-6 space-y-6">
-            <h1 class="text-2xl font-semibold">Update Profile</h1>
-            <form class="space-y-4">
+            <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">Update Profile</h1>
+
+            <form method="POST" enctype="multipart/form-data" class="space-y-4">
+                {% csrf_token %}
+
+                <!-- Image Upload -->
                 <div class="flex items-center space-x-4">
-                    <img src="https://source.unsplash.com/100x100/?portrait" alt="Current avatar"
-                         class="w-20 h-20 rounded-full object-cover">
+                    <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
+                        {% if form.instance.image %}
+                            <img id="imagePreview"
+                                 src="{{ form.instance.image.url }}"
+                                 alt="Image Preview"
+                                 class="w-full h-full object-cover">
+                        {% else %}
+                            <img id="imagePreview"
+                                 src=""
+                                 alt="Image Preview"
+                                 class="w-full h-full object-cover hidden">
+                            <i id="placeholderIcon"
+                               class="bi bi-person text-3xl text-gray-400"></i>
+                        {% endif %}
+                    </div>
                     <div>
-                        <label for="avatar"
-                               class="bg-gradient-to-r from-neoblue to-neopink text-white py-2 px-4 rounded-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neoblue transition-neo cursor-pointer">
+                        <label for="id_image"
+                               class="bg-gradient-to-r from-neoblue to-neopink text-white py-2 px-4 rounded-md
+                                      hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2
+                                      focus:ring-neoblue transition-neo cursor-pointer">
                             Change Picture
                         </label>
-                        <input type="file" id="avatar" class="hidden" accept="image/*">
+                        {{ form.image }}
+                        {% if form.image.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ form.image.errors.0 }}</p>
+                        {% endif %}
                     </div>
                 </div>
+                <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const fileInput = document.getElementById('id_image');
+                    const imagePreview = document.getElementById('imagePreview');
+                    const placeholderIcon = document.getElementById('placeholderIcon');
+
+                    fileInput.addEventListener('change', function(event) {
+                        const file = event.target.files[0];
+                        if (file) {
+                            // Read the file as a DataURL and display it
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                imagePreview.src = e.target.result;
+                                imagePreview.classList.remove('hidden');
+                                if (placeholderIcon) {
+                                    placeholderIcon.classList.add('hidden');
+                                }
+                            };
+                            reader.readAsDataURL(file);
+                        } else {
+                            // If no file selected, revert to placeholder
+                            imagePreview.src = '';
+                            imagePreview.classList.add('hidden');
+                            if (placeholderIcon) {
+                                placeholderIcon.classList.remove('hidden');
+                            }
+                        }
+                    });
+                });
+                </script>
+
+                <!-- Full Name -->
                 <div>
-                    <label for="fullname" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full
-                        Name</label>
-                    <input type="text" id="fullname" value="John Doe"
-                           class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo">
+                    <label for="id_full_name"
+                           class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
+                    {{ form.full_name }}
+                    {% if form.full_name.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.full_name.errors.0 }}</p>
+                    {% endif %}
                 </div>
+
+                <!-- Bio -->
                 <div>
-                    <label for="bio" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Bio</label>
-                    <textarea id="bio" rows="3"
-                              class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo"></textarea>
+                    <label for="id_bio"
+                           class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Bio</label>
+                    {{ form.bio }}
+                    {% if form.bio.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.bio.errors.0 }}</p>
+                    {% endif %}
                 </div>
+                <!-- Email (Read-Only) -->
                 <div>
-                    <label for="email"
+                    <label for="id_email"
                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
-                    <input type="email" id="email" value="johndoe@example.com"
-                           class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo">
+                    <input type="email" name="email" id="id_email" value="{{ user.email }}" readonly
+                           class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo cursor-not-allowed">
                 </div>
+
+
+                <!-- Submit Button -->
                 <button type="submit"
                         class="w-full bg-gradient-to-r from-neoblue to-neopink text-white py-2 px-4 rounded-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neoblue transition-neo">
                     Save Changes
@@ -45,6 +109,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
-

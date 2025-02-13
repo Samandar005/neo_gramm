@@ -2,6 +2,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView, FormView, UpdateView
 from django.urls import reverse_lazy
+from .models import UserProfile
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, UserProfileForm
 
 
@@ -30,10 +31,28 @@ class UserLoginView(FormView):
             return super().form_valid(form)
         return self.form_invalid(form)
 
-class ProfileView(LoginRequiredMixin, UpdateView):
+
+class UpdateProfileView(LoginRequiredMixin, UpdateView):
+    model = UserProfile
     form_class = UserProfileForm
     template_name = 'users/profile-update.html'
     success_url = reverse_lazy('home')
 
     def get_object(self, queryset=None):
-        return self.request.user.profile
+        profile, created = UserProfile.objects.get_or_create(user=self.request.user)
+        return profile
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        full_name = form.cleaned_data.get('full_name')
+        if full_name and self.request.user.full_name != full_name:
+            self.request.user.full_name = full_name
+            self.request.user.save()
+
+        return response

@@ -1,9 +1,9 @@
 from django import forms
-from .models import Posts
+from .models import Post
 
 class PostForm(forms.ModelForm):
     class Meta:
-        model = Posts
+        model = Post
         fields = ('image', 'caption', 'hashtags')
         widgets = {
             'caption': forms.Textarea(attrs={
