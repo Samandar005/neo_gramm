@@ -1,27 +1,35 @@
 {% extends 'base.html' %}
 
 
-{% block title %}  NeoGram - Post Detail {% endblock %}
+{% block title %}  NeoGram - {{ post.caption }} Detail {% endblock %}
 
 {% block content %}
+{% load static %}
 <div class="container mx-auto px-4 py-20">
     <div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl neo-shadow overflow-hidden transition-neo">
         <div class="p-4 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
+                <img src="{{ post.author.profile.image.url }}"
                      alt="User avatar" class="w-10 h-10 rounded-full">
-                <span class="font-semibold">johndoe</span>
+                <span class="font-semibold">{{ post.author_full_name }}</span>
+
             </div>
             <div class="flex items-center space-x-2">
-                <a href="post-update.html" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
+                <a href="{{ post.get_update_url }}" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
                     <i class="fas fa-edit"></i>
                 </a>
-                <a href="post-delete-confirm.html" class="text-red-500 hover:text-red-600 transition-neo">
+                <a href="{{ post.get_delete_url }}" class="text-red-500 hover:text-red-600 transition-neo">
                     <i class="fas fa-trash"></i>
                 </a>
             </div>
         </div>
-        <img src="https://source.unsplash.com/600x400/?nature" alt="Post image" class="w-full">
+        <img src="{{ post.image.url }}" alt="Post image" class="w-full cursor-pointer" onclick="openModal('{{ post.image.url }}')">
+        <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center hidden">
+            <div class="relative">
+                <img id="modalImage" src="" class="max-w-full max-h-[90vh] rounded-lg">
+                <button class="absolute top-2 right-2 text-white text-3xl font-bold" onclick="closeModal()">&times;</button>
+            </div>
+        </div>
         <div class="p-4 space-y-4">
             <div class="flex items-center space-x-4">
                 <button class="text-red-500 hover:text-red-600 transition-neo">
@@ -32,22 +40,34 @@
                 </button>
             </div>
             <p class="font-semibold">100 likes</p>
-            <p><span class="font-semibold">johndoe</span> Exploring the beauty of nature! 🌿🌄 #NaturePhotography
-                #Adventure</p>
+            <p><span class="font-semibold">{{ post.author_full_name }}: </span> {{ post.caption }}</p>
             <div class="flex flex-wrap gap-2">
                 <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 transition-neo">#NaturePhotography</span>
                 <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 transition-neo">#Adventure</span>
             </div>
+
             <div class="space-y-3">
                 <h3 class="font-semibold text-lg">Comments</h3>
                 <div class="space-y-2">
-                    <p><span class="font-semibold">user1</span> Amazing shot! 😍</p>
-                    <p><span class="font-semibold">user2</span> Where is this? I'd love to visit!</p>
+                    {% for comment in post.comments.all %}
+                        <p>
+                            <span class="font-semibold">{{ comment.user.full_name }}:</span> {{ comment.comments }}
+                        </p>
+                    {% empty %}
+                        <p>No comments yet. Be the first to comment!</p>
+                    {% endfor %}
                 </div>
             </div>
-            <form class="mt-4 flex items-center space-x-2">
-                <input type="text" placeholder="Add a comment..."
-                       class="flex-grow px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo">
+
+            <form method="POST" class="mt-4 flex items-center space-x-2">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="flex-grow">
+                    {{ form.comments.errors }}
+                    <input type="text" name="comments" placeholder="Add a comment..."
+                           value="{{ form.comments.value|default_if_none:'' }}"
+                           class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo">
+                </div>
                 <button type="submit"
                         class="px-4 py-2 bg-gradient-to-r from-neoblue to-neopink text-white rounded-md hover:opacity-90 transition-neo">
                     Submit
@@ -56,5 +76,5 @@
         </div>
     </div>
 </div>
-
+<script src="{% static 'js/image.js' %}"></script>
 {% endblock %}

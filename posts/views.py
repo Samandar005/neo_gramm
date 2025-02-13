@@ -37,7 +37,12 @@ class HomePageView(ListView):
 
 
 
-class PostDetailView(DetailView):
+from django.views.generic import DetailView
+from django.views.generic.edit import FormMixin
+from .models import Post
+from comments.forms import CommentForm
+
+class PostDetailView(FormMixin, DetailView):
     model = Post
     template_name = 'posts/post_detail.html'
     context_object_name = 'post'
@@ -69,6 +74,10 @@ class PostCreateView(CreateView):
     form_class = PostForm
     template_name = 'posts/post_create.html'
     success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 class PostUpdateView(UpdateView):
     model = Post
