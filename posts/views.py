@@ -2,6 +2,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, View
 from .forms import PostForm
 from .models import Post
+from django.shortcuts import get_object_or_404
 from django.db.models import Q, Count
 from django.views.generic.edit import FormMixin
 from comments.forms import CommentForm
@@ -62,6 +63,9 @@ class PostDetailView(FormMixin, DetailView):
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Post, slug=self.kwargs.get('slug'))
 
 
 class PostCreateView(CreateView):
