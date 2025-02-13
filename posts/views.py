@@ -1,10 +1,11 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView, View
 from .forms import PostForm
 from .models import Post
 from django.db.models import Q, Count
 from django.views.generic.edit import FormMixin
 from comments.forms import CommentForm
+from django.http import JsonResponse
 
 
 class HomePageView(ListView):
@@ -86,3 +87,25 @@ class PostDeleteView(DeleteView):
     model = Post
     template_name = 'posts/post-delete-confirm.html'
     success_url = reverse_lazy('home')
+
+
+class LikePostView(View):
+    def post(self, request, post_id):
+        if not request.user.is_authenticated:
+            return JsonResponse({'error': 'Login required'}, status=401)
+
+        try:
+            post = Post.objects.get(id=post_id)
+            if request.user in post.likes.all():
+                post.likes.remove(request.user)
+                liked = False
+            else:
+                post.likes.add(request.user)
+                liked = True
+
+            return JsonResponse({
+                'liked': liked,
+                'likes_count': post.likes.count()
+            })
+        except Post.DoesNotExist:
+            return JsonResponse({'error': 'Post not found'}, status=404)

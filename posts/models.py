@@ -8,7 +8,7 @@ class Post(BaseModel):
     image = models.ImageField(upload_to='posts/')
     caption = models.CharField(max_length=50)
     hashtags = models.CharField(max_length=255)
-    likes = models.PositiveIntegerField(default=0)
+    likes = models.ManyToManyField( settings.AUTH_USER_MODEL, related_name='liked_posts', blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,  related_name='posts')
 
     def get_detail_url(self):
