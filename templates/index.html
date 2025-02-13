@@ -1,221 +1,94 @@
-<!DOCTYPE html>
-<html lang="en" class="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeoGram - 2025 Social Experience</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        neoblue: '#3b82f6',
-                        neopink: '#ec4899',
-                        neodark: '#1f2937',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-        .neo-gradient {
-            background: linear-gradient(45deg, #3b82f6, #ec4899);
-        }
-        .neo-shadow {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        .transition-neo {
-            transition: all 0.3s ease;
-        }
-    </style>
-</head>
-<body class="bg-gray-100 dark:bg-neodark text-gray-900 dark:text-gray-100 transition-neo">
-    <nav class="bg-white dark:bg-gray-800 neo-shadow fixed w-full z-10">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <h1 class="text-2xl font-semibold neo-gradient text-transparent bg-clip-text">NeoGram</h1>
-            <div class="flex items-center space-x-4">
-                <a href="post-create.html" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
-                    <i class="fas fa-plus-square text-2xl"></i>
-                </a>
-                <a href="profile-update.html" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
-                    <i class="fas fa-user-circle text-2xl"></i>
-                </a>
-                <a href="login.html" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
-                    <i class="fas fa-sign-out-alt text-2xl"></i>
-                </a>
-                <button id="darkModeToggle" class="text-yellow-500 hover:text-yellow-600 dark:text-yellow-300 dark:hover:text-yellow-400 transition-neo">
-                    <i class="fas fa-moon text-2xl"></i>
-                </button>
-            </div>
+{% extends 'base.html' %}
+
+
+{% block title %} NeoGram - 2025 Social Experience  {% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-20">
+    <div class="max-w-2xl mx-auto space-y-8">
+        <div class="bg-white dark:bg-gray-800 rounded-xl neo-shadow p-4 transition-neo">
+            <form class="mb-4">
+                <div class="relative mb-4">
+                    <input type="text" placeholder="Search posts..."
+                           class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink bg-white dark:bg-gray-700 transition-neo">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <button type="button"
+                            class="px-3 py-1 bg-neoblue text-white rounded-full text-sm hover:bg-opacity-80 transition-neo">
+                        #All
+                    </button>
+                    <button type="button"
+                            class="px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-opacity-80 transition-neo">
+                        #NaturePhotography
+                    </button>
+                    <button type="button"
+                            class="px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-opacity-80 transition-neo">
+                        #TechInnovation
+                    </button>
+                    <button type="button"
+                            class="px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-opacity-80 transition-neo">
+                        #FoodieLife
+                    </button>
+                </div>
+                <div class="flex items-center justify-between">
+                    <select class="px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo">
+                        <option>Latest</option>
+                        <option>Most Liked</option>
+                        <option>Most Commented</option>
+                    </select>
+                    <button type="submit"
+                            class="px-4 py-2 bg-gradient-to-r from-neoblue to-neopink text-white rounded-lg hover:opacity-90 transition-neo">
+                        Apply
+                    </button>
+                </div>
+            </form>
         </div>
-    </nav>
 
-    <div class="container mx-auto px-4 py-20">
-        <div class="max-w-2xl mx-auto space-y-8">
-            <!-- Search, Filter, and Order Section -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl neo-shadow p-4 transition-neo">
-                <form class="mb-4">
-                    <div class="relative mb-4">
-                        <input type="text" placeholder="Search posts..." class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink bg-white dark:bg-gray-700 transition-neo">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fas fa-search text-gray-400"></i>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <button type="button" class="px-3 py-1 bg-neoblue text-white rounded-full text-sm hover:bg-opacity-80 transition-neo">
-                            #All
-                        </button>
-                        <button type="button" class="px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-opacity-80 transition-neo">
-                            #NaturePhotography
-                        </button>
-                        <button type="button" class="px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-opacity-80 transition-neo">
-                            #TechInnovation
-                        </button>
-                        <button type="button" class="px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-full text-sm hover:bg-opacity-80 transition-neo">
-                            #FoodieLife
-                        </button>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <select class="px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo">
-                            <option>Latest</option>
-                            <option>Most Liked</option>
-                            <option>Most Commented</option>
-                        </select>
-                        <button type="submit" class="px-4 py-2 bg-gradient-to-r from-neoblue to-neopink text-white rounded-lg hover:opacity-90 transition-neo">
-                            Apply
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Post 1 -->
+        <!-- Post 1 -->
+        {% for post in posts %}
             <div class="bg-white dark:bg-gray-800 rounded-xl neo-shadow overflow-hidden transition-neo hover:shadow-lg">
-                <div class="p-4 flex items-center justify-between">
-                    <div class="flex items-center space-x-3">
-                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User avatar" class="w-10 h-10 rounded-full">
-                        <span class="font-semibold">johndoe</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <a href="post-update.html" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a href="post-delete-confirm.html" class="text-red-500 hover:text-red-600 transition-neo">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </div>
+            <div class="p-4 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
+                         alt="User avatar" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold">johndoe</span>
                 </div>
-                <img src="https://images.unsplash.com/photo-1682686581498-5e85c7228119?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Post image" class="w-full">
-                <div class="p-4 space-y-3">
-                    <div class="flex items-center space-x-4">
-                        <button class="text-red-500 hover:text-red-600 transition-neo">
-                            <i class="fas fa-heart text-2xl"></i>
-                        </button>
-                        <a href="post-detail.html" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
-                            <i class="fas fa-comment text-2xl"></i>
-                        </a>
-                    </div>
-                    <p class="font-semibold">100 likes</p>
-                    <p><span class="font-semibold">johndoe</span> Exploring the beauty of nature! 🌿🌄 #NaturePhotography #Adventure</p>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm">View all 10 comments</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 transition-neo">#NaturePhotography</span>
-                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 transition-neo">#Adventure</span>
-                    </div>
+                <div class="flex items-center space-x-2">
+                    <a href="post-update.html" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="post-delete-confirm.html" class="text-red-500 hover:text-red-600 transition-neo">
+                        <i class="fas fa-trash"></i>
+                    </a>
                 </div>
             </div>
-
-            <!-- Post 2 -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl neo-shadow overflow-hidden transition-neo hover:shadow-lg">
-                <div class="p-4 flex items-center justify-between">
-                    <div class="flex items-center space-x-3">
-                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User avatar" class="w-10 h-10 rounded-full">
-                        <span class="font-semibold">janedoe</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <a href="post-update.html" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a href="post-delete-confirm.html" class="text-red-500 hover:text-red-600 transition-neo">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </div>
+            <img src="{{ post.image.url }}"
+                 alt="Post image" class="w-full">
+            <div class="p-4 space-y-3">
+                <div class="flex items-center space-x-4">
+                    <button class="text-red-500 hover:text-red-600 transition-neo">
+                        <i class="fas fa-heart text-2xl"></i>
+                    </button>
+                    <a href="{{ post.get_detail_url }}" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
+                        <i class="fas fa-comment text-2xl"></i>
+                    </a>
                 </div>
-                <img src="https://images.unsplash.com/photo-1682687982501-1e58ab814714?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Post image" class="w-full">
-                <div class="p-4 space-y-3">
-                    <div class="flex items-center space-x-4">
-                        <button class="text-gray-500 hover:text-red-500 transition-neo">
-                            <i class="far fa-heart text-2xl"></i>
-                        </button>
-                        <a href="post-detail.html" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
-                            <i class="fas fa-comment text-2xl"></i>
-                        </a>
-                    </div>
-                    <p class="font-semibold">50 likes</p>
-                    <p><span class="font-semibold">janedoe</span> Embracing the future of tech! 💻🚀 #TechInnovation #FutureTech</p>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm">View all 5 comments</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 transition-neo">#TechInnovation</span>
-                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 transition-neo">#FutureTech</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Post 3 -->
-            <div class="bg-white dark:bg-gray-800 rounded-xl neo-shadow overflow-hidden transition-neo hover:shadow-lg">
-                <div class="p-4 flex items-center justify-between">
-                    <div class="flex items-center space-x-3">
-                        <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User avatar" class="w-10 h-10 rounded-full">
-                        <span class="font-semibold">foodielover</span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <a href="post-update.html" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a href="post-delete-confirm.html" class="text-red-500 hover:text-red-600 transition-neo">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </div>
-                </div>
-                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Post image" class="w-full">
-                <div class="p-4 space-y-3">
-                    <div class="flex items-center space-x-4">
-                        <button class="text-gray-500 hover:text-red-500 transition-neo">
-                            <i class="far fa-heart text-2xl"></i>
-                        </button>
-                        <a href="post-detail.html" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
-                            <i class="fas fa-comment text-2xl"></i>
-                        </a>
-                    </div>
-                    <p class="font-semibold">75 likes</p>
-                    <p><span class="font-semibold">foodielover</span> Delicious homemade pasta! 🍝👨‍🍳 #FoodieLife #Cooking</p>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm">View all 8 comments</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 transition-neo">#FoodieLife</span>
-                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 transition-neo">#Cooking</span>
-                    </div>
+                <p class="font-semibold">100 likes</p>
+                <p><span class="font-semibold">johndoe</span> Exploring the beauty of nature! 🌿🌄 #NaturePhotography
+                    #Adventure</p>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">View all {{ post.comments.count }} comments</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 transition-neo">#NaturePhotography</span>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 transition-neo">#Adventure</span>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
+</div>
 
-    <script>
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const html = document.documentElement;
-
-        darkModeToggle.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            const isDark = html.classList.contains('dark');
-            darkModeToggle.innerHTML = isDark ? '<i class="fas fa-sun text-2xl"></i>' : '<i class="fas fa-moon text-2xl"></i>';
-        });
-    </script>
-</body>
-</html>
+{% endblock %}
 
