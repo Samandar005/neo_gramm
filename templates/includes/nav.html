@@ -2,7 +2,7 @@
     <div class="container mx-auto px-4 py-3 flex justify-between items-center">
         <h1 class="text-2xl font-semibold neo-gradient text-transparent bg-clip-text">NeoGram</h1>
         <div class="flex items-center space-x-4">
-            <a href="post-create.html" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
+            <a href="{% url 'posts:create' %}" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
                 <i class="fas fa-plus-square text-2xl"></i>
             </a>
             <a href="profile-update.html" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
