@@ -4,21 +4,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} {% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>NeoGram - 2025 Social Experience</title>
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        neoblue: '#3b82f6',
+                        neopink: '#ec4899',
+                        neodark: '#1f2937',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .neo-gradient {
+            background: linear-gradient(45deg, #3b82f6, #ec4899);
+        }
+        .neo-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .transition-neo {
+            transition: all 0.3s ease;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 dark:bg-neodark text-gray-900 dark:text-gray-100 transition-neo">
-                {# NAV #}
-    {% include 'includes/nav.html' %}
+    <nav class="bg-white dark:bg-gray-800 neo-shadow fixed w-full z-10">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-2xl font-semibold neo-gradient text-transparent bg-clip-text">NeoGram</h1>
+            <div class="flex items-center space-x-4">
+                <a href="post-create.html" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
+                    <i class="fas fa-plus-square text-2xl"></i>
+                </a>
+                <a href="profile-update.html" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
+                    <i class="fas fa-user-circle text-2xl"></i>
+                </a>
+                <a href="login.html" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
+                    <i class="fas fa-sign-out-alt text-2xl"></i>
+                </a>
+                <button id="darkModeToggle" class="text-yellow-500 hover:text-yellow-600 dark:text-yellow-300 dark:hover:text-yellow-400 transition-neo">
+                    <i class="fas fa-moon text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
 
-    <div class="container mx-auto px-4 py-20">
-                 {# CONTENT #}
-        {% block content %} {% endblock %}
-    </div>
-    {% block button %}  {% endblock %}
-    <script src="{% static 'js/scripts.js' %}"></script>
+
+
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+
+        darkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            const isDark = html.classList.contains('dark');
+            darkModeToggle.innerHTML = isDark ? '<i class="fas fa-sun text-2xl"></i>' : '<i class="fas fa-moon text-2xl"></i>';
+        });
+    </script>
 </body>
 </html>
 

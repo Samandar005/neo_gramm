@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeoGram - Delete Post Confirmation</title>
+    <title>NeoGram - Create Post</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -58,24 +58,29 @@
         </div>
     </nav>
 
-    <div class="flex items-center justify-center min-h-screen">
-        <div class="bg-white dark:bg-gray-800 p-8 rounded-xl neo-shadow w-96 transition-neo">
-            <h1 class="text-2xl font-semibold mb-6 text-center">Delete Post</h1>
-            <p class="mb-6 text-center">Are you sure you want to delete this post? This action cannot be undone.</p>
-            <div class="flex justify-center space-x-4">
-                <a href="index.html" class="bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200 py-2 px-4 rounded-md hover:bg-gray-400 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-neo">
-                    Cancel
-                </a>
-                <a href="index.html" class="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 transition-neo">
-                    Delete
-                </a>
-            </div>
+
+    <div class="container mx-auto px-4 py-20">
+        <div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl neo-shadow overflow-hidden transition-neo p-6">
+            <h2 class="text-2xl font-semibold mb-6">Create New Post</h2>
+            <form class="space-y-4">
+                <div>
+                    <label for="image" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Upload Image</label>
+                    <input type="file" id="image" accept="image/*" class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo">
+                </div>
+                <div>
+                    <label for="caption" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Caption</label>
+                    <textarea id="caption" rows="3" class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo"></textarea>
+                </div>
+                <div>
+                    <label for="hashtags" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Hashtags</label>
+                    <input type="text" id="hashtags" placeholder="#YourHashtags" class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-neoblue to-neopink text-white py-2 px-4 rounded-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neoblue transition-neo">
+                    Post
+                </button>
+            </form>
         </div>
     </div>
-
-    <button id="darkModeToggle" class="fixed bottom-4 right-4 bg-gray-200 dark:bg-gray-700 p-2 rounded-full neo-shadow transition-neo">
-        <i class="fas fa-moon text-yellow-500"></i>
-    </button>
 
     <script>
         const darkModeToggle = document.getElementById('darkModeToggle');
@@ -84,7 +89,7 @@
         darkModeToggle.addEventListener('click', () => {
             html.classList.toggle('dark');
             const isDark = html.classList.contains('dark');
-            darkModeToggle.innerHTML = isDark ? '<i class="fas fa-sun text-yellow-500"></i>' : '<i class="fas fa-moon text-yellow-500"></i>';
+            darkModeToggle.innerHTML = isDark ? '<i class="fas fa-sun text-2xl"></i>' : '<i class="fas fa-moon text-2xl"></i>';
         });
     </script>
 </body>

@@ -1,45 +1,79 @@
-{% extends 'base.html' %}
-
-{% block title %}  NeoGram - Login {% endblock %}
-
-{% block content %}
-<div class="bg-white dark:bg-gray-800 p-8 rounded-xl neo-shadow w-96 transition-neo">
-    <h1 class="text-3xl font-semibold mb-6 text-center neo-gradient text-transparent bg-clip-text">NeoGram</h1>
-    <form method="post" class="space-y-4">
-       {% csrf_token %}
-
-        <div class="mb-4">
-            <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
-            {{ form.username }}
-            {% if form.username.errors %}
-                <p class="text-red-500 text-xs mt-1">{{ form.username.errors.0 }}</p>
-            {% endif %}
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoGram - Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        neoblue: '#3b82f6',
+                        neopink: '#ec4899',
+                        neodark: '#1f2937',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .neo-gradient {
+            background: linear-gradient(45deg, #3b82f6, #ec4899);
+        }
+        .neo-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .transition-neo {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-neodark text-gray-900 dark:text-gray-100 transition-neo">
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-xl neo-shadow w-96 transition-neo">
+            <h1 class="text-3xl font-semibold mb-6 text-center neo-gradient text-transparent bg-clip-text">NeoGram</h1>
+            <form class="space-y-4">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                    <input type="email" id="email" class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo" required>
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
+                    <input type="password" id="password" class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo" required>
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-neoblue to-neopink text-white py-2 px-4 rounded-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neoblue transition-neo">
+                    Log In
+                </button>
+            </form>
+            <p class="mt-4 text-center text-sm">
+                Don't have an account? <a href="signup.html" class="text-neoblue dark:text-neopink hover:underline">Sign up</a>
+            </p>
         </div>
+    </div>
 
-        <div class="mb-4">
-            <label for="{{ form.password.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
-            {{ form.password }}
-            {% if form.password.errors %}
-                <p class="text-red-500 text-xs mt-1">{{ form.password.errors.0 }}</p>
-            {% endif %}
-        </div>
+    <button id="darkModeToggle" class="fixed bottom-4 right-4 bg-gray-200 dark:bg-gray-700 p-2 rounded-full neo-shadow transition-neo">
+        <i class="fas fa-moon text-yellow-500"></i>
+    </button>
 
-        <button type="submit"
-                class="w-full bg-gradient-to-r from-neoblue to-neopink text-white py-2 px-4 rounded-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neoblue transition-neo">
-            Log In
-        </button>
-    </form>
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
 
-    <p class="mt-4 text-center text-sm">
-        Don't have an account?
-        <a href="{% url 'signup' %}" class="text-neoblue dark:text-neopink hover:underline">Sign up</a>
-    </p>
-</div>
-{% endblock %}
+        darkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            const isDark = html.classList.contains('dark');
+            darkModeToggle.innerHTML = isDark ? '<i class="fas fa-sun text-yellow-500"></i>' : '<i class="fas fa-moon text-yellow-500"></i>';
+        });
+    </script>
+</body>
+</html>
 
-{% block button %}
-<button id="darkModeToggle"
-        class="fixed bottom-4 right-4 bg-gray-200 dark:bg-gray-700 p-2 rounded-full neo-shadow transition-neo">
-    <i class="fas fa-moon text-yellow-500"></i>
-</button>
-{% endblock %}

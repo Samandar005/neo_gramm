@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeoGram - Update Profile</title>
+    <title>NeoGram - Post Detail</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -58,34 +58,50 @@
         </div>
     </nav>
 
+
     <div class="container mx-auto px-4 py-20">
         <div class="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl neo-shadow overflow-hidden transition-neo">
-            <div class="p-6 space-y-6">
-                <h1 class="text-2xl font-semibold">Update Profile</h1>
-                <form class="space-y-4">
-                    <div class="flex items-center space-x-4">
-                        <img src="https://source.unsplash.com/100x100/?portrait" alt="Current avatar" class="w-20 h-20 rounded-full object-cover">
-                        <div>
-                            <label for="avatar" class="bg-gradient-to-r from-neoblue to-neopink text-white py-2 px-4 rounded-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neoblue transition-neo cursor-pointer">
-                                Change Picture
-                            </label>
-                            <input type="file" id="avatar" class="hidden" accept="image/*">
-                        </div>
+            <div class="p-4 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User avatar" class="w-10 h-10 rounded-full">
+                    <span class="font-semibold">johndoe</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <a href="post-update.html" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="post-delete-confirm.html" class="text-red-500 hover:text-red-600 transition-neo">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </div>
+            </div>
+            <img src="https://source.unsplash.com/600x400/?nature" alt="Post image" class="w-full">
+            <div class="p-4 space-y-4">
+                <div class="flex items-center space-x-4">
+                    <button class="text-red-500 hover:text-red-600 transition-neo">
+                        <i class="fas fa-heart text-2xl"></i>
+                    </button>
+                    <button class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
+                        <i class="fas fa-comment text-2xl"></i>
+                    </button>
+                </div>
+                <p class="font-semibold">100 likes</p>
+                <p><span class="font-semibold">johndoe</span> Exploring the beauty of nature! 🌿🌄 #NaturePhotography #Adventure</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 transition-neo">#NaturePhotography</span>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 transition-neo">#Adventure</span>
+                </div>
+                <div class="space-y-3">
+                    <h3 class="font-semibold text-lg">Comments</h3>
+                    <div class="space-y-2">
+                        <p><span class="font-semibold">user1</span> Amazing shot! 😍</p>
+                        <p><span class="font-semibold">user2</span> Where is this? I'd love to visit!</p>
                     </div>
-                    <div>
-                        <label for="fullname" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
-                        <input type="text" id="fullname" value="John Doe" class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo">
-                    </div>
-                    <div>
-                        <label for="bio" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Bio</label>
-                        <textarea id="bio" rows="3" class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo"></textarea>
-                    </div>
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
-                        <input type="email" id="email" value="johndoe@example.com" class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo">
-                    </div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-neoblue to-neopink text-white py-2 px-4 rounded-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neoblue transition-neo">
-                        Save Changes
+                </div>
+                <form class="mt-4 flex items-center space-x-2">
+                    <input type="text" placeholder="Add a comment..." class="flex-grow px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-neoblue dark:focus:ring-neopink transition-neo">
+                    <button type="submit" class="px-4 py-2 bg-gradient-to-r from-neoblue to-neopink text-white rounded-md hover:opacity-90 transition-neo">
+                        Submit
                     </button>
                 </form>
             </div>
@@ -104,3 +120,4 @@
     </script>
 </body>
 </html>
+
