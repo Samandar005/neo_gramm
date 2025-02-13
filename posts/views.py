@@ -3,6 +3,8 @@ from django.views.generic import ListView, CreateView, UpdateView, DetailView, D
 from .forms import PostForm
 from .models import Post
 from django.db.models import Q
+from django.views.generic.edit import FormMixin
+from comments.forms import CommentForm
 
 
 class HomePageView(ListView):
@@ -39,6 +41,28 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'posts/post_detail.html'
     context_object_name = 'post'
+    form_class = CommentForm
+
+    def get_success_url(self):
+        return self.request.path
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.get_form()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.posts = self.object
+            comment.user = self.request.user
+            comment.save()
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
 
 class PostCreateView(CreateView):
     model = Post
