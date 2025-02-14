@@ -7,12 +7,14 @@ from django.db.models import Q, Count
 from django.views.generic.edit import FormMixin
 from comments.forms import CommentForm
 from django.http import JsonResponse
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
-class HomePageView(ListView):
+class HomePageView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'index.html'
     context_object_name = 'posts'
+    login_url = '/users/login/'
 
     def get_queryset(self):
         posts = Post.objects.all()
@@ -30,7 +32,7 @@ class HomePageView(ListView):
             posts = posts.filter(hashtags__icontains=hashtag_filter)
 
         if order_option == 'Most Liked':
-            posts = posts.order_by('-likes')
+            posts = posts.annotate(like_count=Count('likes')).order_by('-like_count')
         elif order_option == 'Most Commented':
             posts = posts.annotate(comment_count=Count('comments')).order_by('-comment_count')
         else:

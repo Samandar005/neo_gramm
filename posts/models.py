@@ -1,6 +1,4 @@
 from django.db import models
-
-from users.models import CustomUser
 from .base_models import BaseModel
 from django.shortcuts import reverse
 from django.conf import settings
