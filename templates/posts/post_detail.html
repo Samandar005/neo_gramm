@@ -35,15 +35,19 @@
             </div>
         </div>
         <div class="p-4 space-y-4">
+
             <div class="flex items-center space-x-4">
-                <button class="text-red-500 hover:text-red-600 transition-neo">
+                <button id="like-button-{{ post.id }}"
+                        class="like-button transition-neo {% if user in post.likes.all %}text-red-600{% else %}text-white{% endif %}"
+                        data-post-id="{{ post.id }}"
+                        data-liked="{% if user in post.likes.all %}true{% else %}false{% endif %}">
                     <i class="fas fa-heart text-2xl"></i>
                 </button>
-                <button class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
+                <a href="{{ post.get_detail_url }}" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
                     <i class="fas fa-comment text-2xl"></i>
-                </button>
+                </a>
             </div>
-            <p class="font-semibold">100 likes</p>
+            <p class="font-semibold" id="likes-count-{{ post.id }}">{{ post.likes.count }} likes</p>
             <p><span class="font-semibold">{{ post.author_full_name }}: </span> {{ post.caption }}</p>
             <div class="flex flex-wrap gap-2">
                 <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 transition-neo">#NaturePhotography</span>
@@ -81,4 +85,5 @@
     </div>
 </div>
 <script src="{% static 'js/image.js' %}"></script>
+<script src="{% static 'js/index.js' %}"></script>
 {% endblock %}
