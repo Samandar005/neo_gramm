@@ -16,6 +16,7 @@
                     {% endif %}
                     <span class="font-semibold">{{ post.author_full_name }}</span>
                 </div>
+            {% if user == post.author %}
             <div class="flex items-center space-x-2">
                 <a href="{{ post.get_update_url }}" class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
                     <i class="fas fa-edit"></i>
@@ -24,6 +25,7 @@
                     <i class="fas fa-trash"></i>
                 </a>
             </div>
+            {% endif %}
         </div>
         <img src="{{ post.image.url }}" alt="Post image" class="w-full cursor-pointer" onclick="openModal('{{ post.image.url }}')">
         <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center hidden">

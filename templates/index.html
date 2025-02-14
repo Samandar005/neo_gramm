@@ -69,7 +69,7 @@
                     <span class="font-semibold">{{ post.author_full_name }}</span>
                 </div>
 
-
+                {% if user == post.author %}
                 <div class="flex items-center space-x-2">
                     <a href="{{ post.get_update_url }}"
                        class="text-neoblue dark:text-neopink hover:opacity-80 transition-neo">
@@ -79,6 +79,7 @@
                         <i class="fas fa-trash"></i>
                     </a>
                 </div>
+                {% endif %}
             </div>
             <a href="{{ post.get_detail_url }}">
                 <img src="{{ post.image.url }}"

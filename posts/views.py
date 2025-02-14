@@ -87,11 +87,22 @@ class PostUpdateView(UpdateView):
     def get_success_url(self):
         return self.object.get_detail_url()
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author
+
 class PostDeleteView(DeleteView):
     model = Post
     template_name = 'posts/post-delete-confirm.html'
     success_url = reverse_lazy('home')
 
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author
 
 class LikePostView(View):
     def post(self, request, post_id):
