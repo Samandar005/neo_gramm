@@ -1,4 +1,6 @@
 from django.db import models
+
+from users.models import CustomUser
 from .base_models import BaseModel
 from django.shortcuts import reverse
 from django.conf import settings
@@ -10,8 +12,8 @@ class Post(BaseModel):
     caption = models.CharField(max_length=50)
     hashtags = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)
-    likes = models.ManyToManyField( settings.AUTH_USER_MODEL, related_name='liked_posts', blank=True)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,  related_name='posts')
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='liked_posts', blank=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts')
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -38,6 +40,3 @@ class Post(BaseModel):
 
     def __str__(self):
         return f"{self.caption}"
-
-
-
