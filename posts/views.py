@@ -40,7 +40,7 @@ class HomePageView(LoginRequiredMixin, ListView):
 
         return posts
 
-class PostDetailView(FormMixin, DetailView):
+class PostDetailView(LoginRequiredMixin, UserPassesTestMixin, FormMixin, DetailView):
     model = Post
     template_name = 'posts/post_detail.html'
     context_object_name = 'post'
@@ -73,7 +73,7 @@ class PostDetailView(FormMixin, DetailView):
         return get_object_or_404(Post, slug=self.kwargs.get('slug'))
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = 'posts/post_create.html'
@@ -83,7 +83,7 @@ class PostCreateView(CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     form_class = PostForm
     template_name = 'posts/post_create.html'
@@ -100,7 +100,7 @@ class PostUpdateView(UpdateView):
         post = self.get_object()
         return self.request.user == post.author
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     template_name = 'posts/post-delete-confirm.html'
     success_url = reverse_lazy('home')
@@ -109,7 +109,7 @@ class PostDeleteView(DeleteView):
         post = self.get_object()
         return self.request.user == post.author
 
-class LikePostView(View):
+class LikePostView(LoginRequiredMixin, UserPassesTestMixin, View):
     def post(self, request, post_id):
         if not request.user.is_authenticated:
             return JsonResponse({'error': 'Login required'}, status=401)
