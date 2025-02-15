@@ -40,6 +40,7 @@ class HomePageView(LoginRequiredMixin, ListView):
 
         return posts
 
+
 class PostDetailView(LoginRequiredMixin, UserPassesTestMixin, FormMixin, DetailView):
     model = Post
     template_name = 'posts/post_detail.html'
@@ -72,6 +73,10 @@ class PostDetailView(LoginRequiredMixin, UserPassesTestMixin, FormMixin, DetailV
     def get_object(self, queryset=None):
         return get_object_or_404(Post, slug=self.kwargs.get('slug'))
 
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author or self.request.user.is_staff
+
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
@@ -82,6 +87,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
@@ -100,6 +106,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         post = self.get_object()
         return self.request.user == post.author
 
+
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     template_name = 'posts/post-delete-confirm.html'
@@ -107,7 +114,8 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         post = self.get_object()
-        return self.request.user == post.author
+        return self.request.user == post.author or self.request.user.is_staff
+
 
 class LikePostView(LoginRequiredMixin, UserPassesTestMixin, View):
     def post(self, request, post_id):
@@ -129,3 +137,6 @@ class LikePostView(LoginRequiredMixin, UserPassesTestMixin, View):
             })
         except Post.DoesNotExist:
             return JsonResponse({'error': 'Post not found'}, status=404)
+
+    def test_func(self):
+        return self.request.user.is_authenticated
