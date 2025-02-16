@@ -13,17 +13,35 @@
                     {{ form.non_field_errors }}
                 </div>
             {% endif %}
-            <div>
-                <label for="{{ form.image.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Upload Image
-                </label>
-                {{ form.image }}
-                {% if form.image.errors %}
-                    <div class="text-red-600 text-sm mt-1">
-                        {{ form.image.errors }}
+                    <div class="flex items-center space-x-4">
+                    <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
+                        {% if form.instance.image %}
+                            <img id="imagePreview"
+                                 src="{{ form.instance.image.url }}"
+                                 alt="Image Preview"
+                                 class="w-full h-full object-cover">
+                        {% else %}
+                            <img id="imagePreview"
+                                 src=""
+                                 alt="Image Preview"
+                                 class="w-full h-full object-cover hidden">
+                            <i id="placeholderIcon"
+                               class="bi bi-person text-3xl text-gray-400"></i>
+                        {% endif %}
                     </div>
-                {% endif %}
-            </div>
+                    <div>
+                        <label for="id_image"
+                               class="bg-gradient-to-r from-neoblue to-neopink text-white py-2 px-4 rounded-md
+                                      hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2
+                                      focus:ring-neoblue transition-neo cursor-pointer">
+                            Change Picture
+                        </label>
+                        {{ form.image }}
+                        {% if form.image.errors %}
+                            <p class="text-red-500 text-sm mt-1">{{ form.image.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
             <div>
                 <label for="{{ form.caption.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Caption
@@ -60,4 +78,34 @@
         </form>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('id_image');
+    const imagePreview = document.getElementById('imagePreview');
+    const placeholderIcon = document.getElementById('placeholderIcon');
+
+    fileInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            // Read the file as a DataURL and display it
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                imagePreview.classList.remove('hidden');
+                if (placeholderIcon) {
+                    placeholderIcon.classList.add('hidden');
+                }
+            };
+            reader.readAsDataURL(file);
+        } else {
+            // If no file selected, revert to placeholder
+            imagePreview.src = '';
+            imagePreview.classList.add('hidden');
+            if (placeholderIcon) {
+                placeholderIcon.classList.remove('hidden');
+            }
+        }
+    });
+});
+</script>
 {% endblock %}
